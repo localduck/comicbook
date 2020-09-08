@@ -1,0 +1,55 @@
+{% extends "mainapp/index.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+            <div class="col col-md-auto">
+                    <div class="logo">
+                            <a href="{% url 'mainapp:observer' %}">
+                            <img src="{% static 'icon/white_dog.png' %}" alt="comic reader" height="60">
+                            </a>
+                    </div>
+            </div>
+
+{% if images %}
+
+        {% if is_paginated %}
+
+            <div class="col">
+                <div class="pagination justify-content-center pt-3 ">
+                    <span class="page-links">
+                        {% if page_obj.has_previous %}
+                        <span class="pagination-prev">
+                            <a href="/read/{{ comic_id }}?page={{ page_obj.previous_page_number }}">previous</a>
+                        </span>
+                        {% endif %}
+                        <span class="page-current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                        <span class="pagination-next">
+                            <a href="/read/{{ comic_id }}?page={{ page_obj.next_page_number }}">next</a>
+                        </span>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+
+        {% endif %}
+        </div>
+
+        {% for img in images %}
+
+            <img class="reading_book" src="/media/{{ img.image }}" alt="">
+
+        {% endfor %}
+
+{% else %}
+    </div>
+    <p>No Pages at this comic! :(</p>
+{% endif %}
+
+
+{% endblock %}

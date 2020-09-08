@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-free/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="shortcut icon" href="{% static 'icon/white_dog.png' %}" type="image/png">
+
+    <title>Title</title>
+</head>
+<body>
+
+
+{% if reading_comic %}
+
+{% else %}
+    {% include 'mainapp/header.html' %}
+{% endif %}
+
+<div class="container pt-5 pb-5">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+{% if reading_comic %}
+
+{% else %}
+    {% include 'mainapp/footer.html' %}
+{% endif %}
+
+
+
+<!--js-->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/dropzone.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+{% if reading_comic %}
+<script src="{% static 'js/jquery.keyboard-pagination.js' %}"></script>
+<script>
+$( '.pagination' ).keyboardPagination(
+{
+    prev:       '.pagination-prev',
+    next:       '.pagination-next',
+});
+$('body').on("click", function(event) {
+    if ($(event.target)[0] === $('.reading_book')[0]) {
+
+        if ($('.pagination-next > a').attr("href")) {
+            window.location.href = $('.pagination-next > a').attr("href");
+        };
+
+    } else {
+
+        if ($('.pagination-prev > a').attr("href")) {
+            window.location.href = $('.pagination-prev > a').attr("href");
+        };
+
+    }
+});
+$('.reading_book').click(function() {
+
+});
+</script>
+{% endif %}
+</body>
+</html>

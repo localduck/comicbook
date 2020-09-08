@@ -1,0 +1,85 @@
+{% extends "mainapp/index.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row pb-5">
+    <h2>Comic uploading. Step two: </h2>
+</div>
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-md-3 pl-5 pb-5">
+            <img src="/media/{{comic_details.comic_banner_image}}" class="mw-100" alt="">
+        </div>
+        <div class="col-md-9 pl-5 pb-5">
+            <div class="row">
+                <div class="col md-6">
+                <h3>Название комикса:</h3>
+                </div>
+                <div class="col md-6 pt-2">
+                {{ comic_details.comic_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col md-6">
+                <h3>Автор комикса:</h3>
+                </div>
+                <div class="col md-6 pt-2">
+                {% if comic_details.comic_author %}
+                    {{ comic_details.comic_author }}
+                {% else %}
+                    {{ comic_details.comic_artist }}
+                {% endif %}
+                </div>
+                </div>
+            <div class="row">
+                <div class="col md-6">
+                <h3>Стиль комикса:</h3>
+                </div>
+                <div class="col md-6 pt-2">
+                {{ comic_details.comic_genre }}
+                </div>
+            </div>
+            {% if comic_details.comic_description %}
+            <div class="row">
+                <div class="col md-6">
+                <h3>Описание комикса:</h3>
+                </div>
+                <div class="col md-6 pt-2">
+                {{ comic_details.comic_description }}
+                </div>
+            </div>
+            {% endif %}
+            <div class="row" hidden>
+                {{comic_details.pk}}
+            </div>
+            <div class="row">
+                <div class="col md-6">
+                <h3>Загружено файлов:</h3>
+                </div>
+                <div class="col md-6 pt-2">
+                    <span class="progress-text"> 0 </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col md-4 pt-5">
+                    <div data-id="{{ comic_details.pk }}" data-type="bookmark" data-action="bookmark" title="Избранное">
+                    <a href="#" class="btn btn-primary">Закладка | <i class="fa fa-heart" aria-hidden="true"></i></a>
+                    <span data-count="{{ comic_details.pk }}bookmark">{{ comic_details.get_bookmark_count }}</span>
+                    </div>
+                </div>
+                <div class="col md-4 pt-5">
+                    <a class="btn btn-primary" href="{% url 'mainapp:reader' comic_details.pk %}">Читать | <i class="fa fa-book" aria-hidden="true"></i></a>
+                </div>
+                <div class="col md-4 pt-5">
+                    <a class="btn btn-primary" href="{% url 'mainapp:observer' %}">На главную</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="add-photos" action="{% url 'auth:cup' pk=comic_details.pk %}" class="dropzone">
+            {% csrf_token %}
+    </form>
+</div>
+{% endblock %}

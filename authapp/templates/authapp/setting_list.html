@@ -1,0 +1,119 @@
+{% extends "mainapp/index.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav>
+  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link {% if opener == 'bookmarks' %} active {% endif %}" id="nav-bookmarks-tab" data-toggle="tab" href="#nav-bookmarks" role="tab" aria-controls="nav-bookmarks" aria-selected="true">
+        Закладки
+    </a>
+    <a class="nav-item nav-link disabled {% if opener == 'filters' %} active {% endif %}" id="nav-filters-tab" data-toggle="tab" href="#nav-filters" role="tab" aria-controls="nav-filters" aria-selected="false">
+        Фильтры по тегам
+    </a>
+    <a class="nav-item nav-link {% if opener == 'uploading' %} active {% endif %}" id="nav-content-tab" data-toggle="tab" href="#nav-content" role="tab" aria-controls="nav-content" aria-selected="false">
+        Загрузить
+    </a>
+    <a class="nav-item nav-link {% if opener == 'settings' %} active {% endif %}" id="nav-setting-tab" data-toggle="tab" href="#nav-setting" role="tab" aria-controls="nav-setting" aria-selected="false">
+        Настройки профиля
+    </a>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade {% if opener == 'bookmarks' %} show active {% endif %}" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab">
+      <div class="container pt-5">
+          <div class="row">
+              <div class="col-md">
+                  {% for mark in user.get_bookmarks %}
+                      <div class="row justify-content-center border border-light rounded custom_line_{{ mark.comic.id }} pt-2 pb-2">
+                          <div class="col-md pt-2 pb-2" align="center">
+
+                            <div data-id="{{ mark.comic.id }}" data-type="bookmark" data-action="bookmark" title="Избранное">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="far fa-heart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+                          </div>
+                          <div class="col-md pt-2 pb-2" align="center">
+                              <a class="comic_link" href="{% url 'mainapp:reader' mark.comic.id %}">
+                                  {{ mark.comic.comic_name }}
+                                  <img class="comic_link_hide bg-img" src="/media/{{ mark.comic.comic_banner_image }}" />
+                              </a>
+                          </div>
+                      </div>
+
+                  {% endfor %}
+              </div>
+              <div class="col-md">
+                  <div class="row justify-content-center pt-2 pb-2">
+                          <div class="col-md pt-2 pb-2" align="center">
+                                <div class="custom-bg-img"></div>
+                          </div>
+                      </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="tab-pane fade {% if opener == 'filters' %} show active {% endif %} disabled" id="nav-filters" role="tabpanel" aria-labelledby="nav-filters-tab">
+      <p class="pt-5">Эта опция <a href="{% url 'mainapp:about' %}">пока</a> неддоступна.</p>
+  </div>
+  <div class="tab-pane fade {% if opener == 'uploading' %} show active {% endif %}" id="nav-content" role="tabpanel" aria-labelledby="nav-content-tab">
+
+      {% if user.is_uploader %}
+
+      {% if settings.errors %}
+        <div class="alert alert-danger" role="alert">{{ settings.errors }}</div>
+      {% endif %}
+
+          <fieldset>
+              <div class="checkbox">
+                <legend>Profile settings:</legend>
+                <form method="post" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    {{ uploader_form | crispy }}
+                    <input name="uploading" type="submit" value="Submit" />
+                </form>
+              </div>
+          </fieldset>
+
+      {% else %}
+
+      <p class="pt-5">У вас, <a href="{% url 'mainapp:about' %}">пока</a>,  нет прав на загрузку контента.</p>
+
+      {% endif %}
+
+  </div>
+  <div class="tab-pane fade {% if opener == 'settings' %} show active {% endif %}" id="nav-setting" role="tabpanel" aria-labelledby="nav-setting-tab">
+
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+
+                <fieldset>
+                    <div class="checkbox">
+                        <legend>Profile settings:</legend>
+                        <form method="post">
+
+                            {% csrf_token %}
+                            {{ edit_form | crispy }}
+                            {% if edit_form.errors %}
+                                {{ edit_form.errors }}
+                            {% endif %}
+
+                        <input name="editing" type="submit" value="Submit" />
+                        </form>
+                    </div>
+                </fieldset>
+
+              </div>
+              <div class="col-md-6 pt-5 bg-info">
+                  <mark>Большая детализация... <a href="{% url 'mainapp:about' %}">coming soon.</a></mark>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="container">
+        <hr>
+        <div class="row">
+                <div class="col col-md-4">
+                        <div class="logo">
+                                <a href="{% url 'mainapp:observer' %}">
+                                <img src="{% static 'icon/white_dog.png' %}" alt="comic reader" height="60">
+                                </a>
+                        </div>
+                </div>
+                <div class="col col-md-4">
+<!--                        <div class="search pt-3">-->
+<!--                                <input class="searching" type="text">-->
+<!--                        </div>-->
+
+                        <div class="input-group mb-4 pt-2">
+                                <input type="text" class="form-control" placeholder="Searching" aria-label="Searching" aria-describedby="searching">
+                                <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button">Barf</button>
+                                </div>
+                        </div>
+
+                </div>
+                {% if user.is_authenticated %}
+                        <div class="col col-md-4 pt-2">
+                                <div class="row">
+                                <div class="col-8">
+                                <h2 class="float-right">
+                                    <a href="{% url 'auth:setup' %}">{{ user.first_name }}</a>
+                                </h2>
+                                </div>
+                                <div class="col-4">
+                                        <a class="btn btn-primary float-right" href="{% url 'auth:logout' %}">Logout</a>
+                                </div>
+                                </div>
+                        </div>
+                {% else %}
+                        <div class="col col-md-4 pt-2">
+                                <a class="btn btn-primary float-right" href="{% url 'social:begin' 'google-oauth2' %}">
+                                        Login with Google +
+                                </a>
+                        </div>
+                {% endif %}
+        </div>
+        <hr>
+</div>

@@ -1,0 +1,72 @@
+{% extends "mainapp/index.html" %}
+
+{% block content %}
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card pl-2 pr-2 pt-1 pb-1">
+                <div class="card-title">
+                    <h6 class="title-text"><p class="text-left">О проекте:</p></h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-center list-group-item-secondary">
+                        Небольшой проект на связке <code>Python</code> + <code>Django</code>, представляющий из себя
+                        <code>Web Comic Reader</code>. С перспективой развития в <code>web comics aggregator</code>, где у пользователя будет возможность
+                        получить доступ к комиксам через простой в использовании <code>web UI</code>: читать комиксы на сайте, создавать
+                        персонализированные коллекции, делится ими с другими пользователями.
+                    </p>
+                    <p>
+                        На ресурсе не хранится ни одного материала. Весь материал взят с других ресурсов и размещен на сайте для ознакомления.
+                        Все размещенные на ресурсе материалы являются собственностью разместивших их пользователей до тех пор, пока не будет оснований считать иначе.
+                        Ресурс не несет ответственности за использование(как правомерное, так и неправомерное) третьими лицами материалов,
+                        размещенных на ресурсе.
+                    </p>
+                    <p>
+                        Понимая актуальность соблюдения прав авторов хотим заверить Вас, что как только факт нарушения
+                        Ваших прав будет заранее установлен, мы предпримем все зависящие от нас меры для пресечения такого нарушения и,
+                        по возможности, постараемся посодействовать недопущению в дальнейшем подобных ситуаций.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card pl-2 pr-2 pt-1 pb-1">
+                <div class="card-title">
+                    <h6 class="title-text"><p class="text-left">Road Map:</p></h6>
+                </div>
+                <div class="card-body">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-info">
+                        Использование Google Drive, для хранилища загружаемых комиксов.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Добавить tags для комиксов и определить созависимые настройки пользователей.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Добавить юридическую информацию: условия использования, лицензионное соглашение, etc.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Добавить живой поиск: поиск по тегам, по названию, etc.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Открыть "роль" uploader для пользователей.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Настроить file downloader(Torrent-?).
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Frontend: написать javascript comic reader app и добавить созависимые настройки пользователей.
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        Рефакторинг, оптимизация, unit-test кода.
+                    </li>
+                </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
