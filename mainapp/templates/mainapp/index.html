@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="shortcut icon" href="{% static 'icon/white_dog.png' %}" type="image/png">
 
-    <title>Title</title>
+    <title>{% if title %}{{ title }}{% else %}Title{% endif %}</title>
 </head>
 <body>
 
