@@ -6,6 +6,14 @@ from django.shortcuts import render
 import json
 
 
+class Error404(View):
+    template_name = 'mainapp/404.html'
+
+    def get(self, request, exception):
+        context = {'title': "Dog's poop!"}
+        return render(request, self.template_name, context)
+
+
 class ComicObserver(ListView):
     model = Comic
     template_name = 'mainapp/comic_list.html'
