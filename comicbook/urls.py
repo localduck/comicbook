@@ -22,6 +22,7 @@ from mainapp import views as main_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls', namespace='auth')),
+    path('search/', include('searchblock.urls', namespace='search')),
     path('', include('social_django.urls', namespace='social')),
     path('', include('mainapp.urls')),
 ]

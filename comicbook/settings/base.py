@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authapp',
     'mainapp',
+    'searchblock',
     'social_django',
     'crispy_forms',
     'django_cleanup',
