@@ -18,6 +18,7 @@ A tiny project on a bunch of <code>Python + Django</code>, which is a Web Comic 
 <li>django-braces==1.14.0</li>
 <li>django-cleanup==5.0.0 #will be removed afte rewrite some functions</li>
 <li>django-crispy-forms==1.9.2</li>
+<li>django-taggit==1.3.0</li>
 <li>social-auth-app-django==4.0.0</li>
 </ul>
 
