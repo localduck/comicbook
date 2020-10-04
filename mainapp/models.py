@@ -1,5 +1,6 @@
 from django.db import models
 from authapp.models import ComicReader
+from taggit.managers import TaggableManager
 
 
 def comic_banner_directory_path(instance, filename):
@@ -32,6 +33,7 @@ class Comic(models.Model):
     comic_original_link = models.URLField(max_length=128, blank=True)
     comic_banner_image = models.FileField(upload_to=comic_banner_directory_path, blank=False,
                                           help_text="лицо комикса")
+    tags = TaggableManager()
 
     def get_preview(self):
         return self.images_set.all().order_by('image')[0:2]

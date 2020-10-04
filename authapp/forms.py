@@ -9,7 +9,10 @@ class ComicUploderForm(ModelForm):
     class Meta:
         model = Comic
         fields = ['comic_name', 'comic_description', 'comic_author', 'comic_artist', 'comic_genre',
-                  'comic_original_link', 'comic_banner_image']
+                  'comic_original_link', 'comic_banner_image', 'tags']
+        widgets = {
+            'tags': forms.TextInput(attrs={'data-role': 'tagsinput'})
+        }
 
 
 class ComicReaderEditForm(UserChangeForm):

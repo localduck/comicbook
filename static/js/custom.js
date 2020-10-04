@@ -26,8 +26,6 @@ function to_bookmarks()
     var type = current.data('type');
     var pk = current.data('id');
     var action = current.data('action');
-    
-//    console.log(current, type, pk, action);
  
     $.ajax({
         url : "/bookmark/" + pk,
@@ -56,4 +54,43 @@ $('.comic_link').hover(function(){
     var set_bg_img = $(this).find( $('.comic_link_hide') ).attr("src");
     $('.custom-bg-img').css('transform', 'scaleX(1)');
     $('.custom-bg-img').css('background-image', 'url(' + set_bg_img + ')');
+});
+
+
+function to_barf() {
+    var barf = $( "#barf" ).val();
+    
+    if (barf.length > 3) {
+        $.ajax({
+            url : "/search/" + barf,
+            type : 'POST',
+            data : { 'searching' : barf },
+
+            success : function (json) {
+                $(".dropdown-item").remove();
+                jQuery.each(json.result, function(k,v) {
+                    $(".dropdown-menu").append("<a class='dropdown-item' href='#'>"+v+"</a>");
+                });
+                if ($("#barf").is(":focus")) {
+                    $(".dropdown-menu").css("display", "block");
+                    $(".dropdown-menu").css("left", "auto");
+                    $(".dropdown-menu").css("top", "45px");
+                    $(".dropdown-menu").css("width", $("#barf").outerWidth());
+                }
+            }
+        });
+    };
+};
+
+$(document).on("mouseenter", ".dropdown-item", function() {
+    $("#barf").val($(this).text());
+});
+$("#barf").on("input focus", to_barf);
+$("#barf").focusout(function() {
+    $(".dropdown-menu").css("display", "none");
+});
+$("#button_barf").on("click", function() {
+    if ($( "#barf" ).val().length != 0) {
+        window.location.href = "/search/" + $( "#barf" ).val();
+    }
 });
