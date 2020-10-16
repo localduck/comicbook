@@ -146,9 +146,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# settings/production.py
-production.py
-
 # sqlite3 files
 *.sqlite3
 
@@ -158,5 +155,9 @@ media/title/
 
 # Ignoring pycache
 **/__pycache__
+
+# Ignore sattings file
+**/settings/base.py
+**/settings/production.py
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm

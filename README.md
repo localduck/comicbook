@@ -39,19 +39,13 @@ mkdir title
 <hr>
 <strong>Server run:</strong>
 
-At folder comicbook-->settings create file  production.py with:
+At folder comicbook-->settings create file like production.py with settings like:
 
 <p>DEBUG = ...</p>
 <p>SECRET_KEY = ...</p>
 <p>ALLOWED_HOSTS = ...</p>
-<p>CACHES = ...</p>
-<p>STATIC_URL = '/static/'</p>
-<p>STATIC_ROOT = ...</p>
-<p>MEDIA_URL = '/media/'</p>
-<p>MEDIA_ROOT = ...</p>
 
--- And other important stuffs that u needed
-
+etc.
 
 <hr>
 <strong>LICENSE:</strong>
