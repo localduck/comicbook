@@ -1,3 +1,25 @@
+#black_theme {
+    background: black;
+}
+#gray_theme {
+    background: gray;
+}
+#lightgray_theme {
+    background: lightgray;
+}
+#darkgray_theme {
+    background: darkgray;
+}
+#white_theme {
+    background: white;
+}
+#whitesmoke_theme {
+    background: whitesmoke;
+}
+#navajowhite_theme {
+    background: navajowhite;
+}
+
 .dropzone {
     border: 2px dashed #dedede;
     border-radius: 5px;
@@ -199,6 +221,10 @@ color: #fff;
 }
 .tags_block_link:hover {
 color: #ffce1f;
+}
+
+dropdown-item { 
+text-overflow: ellipsis;
 }
 
 @media screen and (min-width: 1200px) {}
