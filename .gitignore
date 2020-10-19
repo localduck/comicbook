@@ -160,4 +160,8 @@ media/title/
 **/settings/base.py
 **/settings/production.py
 
+#Ignore migrations dir
+**/migrations/**
+!migrations/__init__.py
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm
