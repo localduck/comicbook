@@ -15,7 +15,7 @@
 
     <title>{% if title %}{{ title }}{% else %}Title{% endif %}</title>
 </head>
-<body>
+<body id="{% if theme %}{{ theme }}{% else %}{{ user.theme|default:'white_theme' }}{% endif %}">
 
 
 {% if reading_comic %}

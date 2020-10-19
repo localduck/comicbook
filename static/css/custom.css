@@ -20,6 +20,17 @@
     background: navajowhite;
 }
 
+#bookmarks_place {
+    height: 300px;
+    overflow-y: auto;
+    direction: rtl;
+}
+#bookmarks_place::-webkit-scrollbar {
+    width: 7px;
+    background-color: #6889a3;
+    border-radius: 10px;
+}
+
 .dropzone {
     border: 2px dashed #dedede;
     border-radius: 5px;

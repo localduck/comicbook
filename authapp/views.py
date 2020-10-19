@@ -8,7 +8,6 @@ from django.conf import settings
 from authapp.models import ComicReader
 from authapp.forms import ComicUploderForm, ComicReaderEditForm
 from django.forms.models import model_to_dict
-from django.urls import reverse
 from mainapp.models import Comic, Images
 
 
@@ -54,6 +53,15 @@ class ReaderSetup(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reading_comic'] = False
+
+        check_list = ['age', 'darck_comic', 'dc_comic', 'marvel_comic', 'adult_comic', 'hentai_comic']
+        comic = model_to_dict(ComicReader.objects.get(username=context['object_list']['name']))
+        comic = {k: comic[k] for k in check_list}
+        context['object_list'] = comic
+
+        if 'theme' in context['settings']:
+            context['theme'] = context['settings']['theme']
+            context['object_list'].pop('theme', None)
         if 'opener' not in context['settings']:
             context['opener'] = 'bookmarks'
         else:
@@ -63,6 +71,7 @@ class ReaderSetup(LoginRequiredMixin, ListView):
             context['uploader_form'] = ComicUploderForm
         elif 'uploader_form' in context['object_list']:
             context['uploader_form'] = context['object_list']['uploader_form']
+
         if 'edit_form' not in context and 'edit_form' not in context['object_list']:
             context['edit_form'] = ComicReaderEditForm(context['object_list'])
         elif 'edit_form' in context['object_list']:
@@ -71,16 +80,19 @@ class ReaderSetup(LoginRequiredMixin, ListView):
         return context
 
     def get(self, request, *args, **kwargs):
-        default_data = {'age': request.user.age,
-                        'darck_comic': request.user.darck_comic,
-                        'dc_comic': request.user.dc_comic,
-                        'marvel_comic': request.user.marvel_comic,
-                        'adult_comic': request.user.adult_comic,
-                        'hentai_comic': request.user.hentai_comic}
-        return render(request, self.template_name, self.get_context_data(object_list=default_data))
+        return render(request, self.template_name, self.get_context_data(object_list={'name': request.user.username}))
 
     def post(self, request):
         context = {}
+
+        if ('selector' and 'theme_selector') in request.POST:
+            user = ComicReader.objects.get(username=request.user)
+            if user:
+                user.theme = request.POST['theme_selector']+'_theme'
+                user.save()
+            context['theme'] = request.POST['theme_selector']+'_theme'
+            context['opener'] = 'settings'
+            return render(request, self.template_name, self.get_context_data(object_list={'name': request.user.username}, settings=context))
 
         if 'uploading' in request.POST:
             uploader_form = ComicUploderForm(request.POST, files=request.FILES)
@@ -101,12 +113,10 @@ class ReaderSetup(LoginRequiredMixin, ListView):
             edit_form = ComicReaderEditForm(request.POST, instance=request.user)
 
             if edit_form.is_valid():
-                check_list = ['age', 'darck_comic', 'dc_comic', 'marvel_comic', 'adult_comic', 'hentai_comic']
                 edit_form.save()
                 context['opener'] = 'settings'
-                comic = model_to_dict(ComicReader.objects.get(username=request.user))
-                comic = {k: comic[k] for k in check_list}
-                return render(request, self.template_name, self.get_context_data(object_list=comic, settings=context))
+                return render(request, self.template_name, self.get_context_data(
+                    object_list={'name': request.user.username}, settings=context))
             else:
                 context['edit_form'] = edit_form
                 context['opener'] = 'settings'

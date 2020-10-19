@@ -23,7 +23,7 @@
   <div class="tab-pane fade {% if opener == 'bookmarks' %} show active {% endif %}" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab">
       <div class="container pt-5">
           <div class="row">
-              <div class="col-md">
+              <div class="col-md" id="bookmarks_place">
                   {% for mark in user.get_bookmarks %}
                       <div class="row justify-content-center border border-light rounded custom_line_{{ mark.comic.id }} pt-2 pb-2">
                           <div class="col-md pt-2 pb-2" align="center">
@@ -73,7 +73,7 @@
 
                     {% csrf_token %}
                     {{ uploader_form | crispy }}
-                    <input name="uploading" type="submit" value="Submit" />
+                    <button class="btn btn-default btn-sm bg-primary" name="uploading" type="submit" style="width:40%; margin-left:30%; margin-bottom:10px;">Загрузка</button>
                 </form>
               </div>
           </fieldset>
@@ -102,14 +102,30 @@
                                 {{ edit_form.errors }}
                             {% endif %}
 
-                        <input name="editing" type="submit" value="Submit" />
+                        <button class="btn btn-default btn-sm bg-primary" name="editing" type="submit" style="width:100%;">Подтверждение</button>
                         </form>
                     </div>
                 </fieldset>
 
               </div>
-              <div class="col-md-6 pt-5 bg-info">
-                  <mark>Большая детализация... <a href="{% url 'mainapp:about' %}">coming soon.</a></mark>
+              <div class="col-md-6 pt-5">
+                  <div><p></p>
+                  </div>
+                  <div>
+                      <form method="post">
+                          {% csrf_token %}
+                          <select class="pb-1" name="theme_selector" id="theme_selector" style="width:50%; height:30px;">
+                          <option value="white">white</option>
+                          <option value="whitesmoke">whitesmoke</option>
+                          <option value="navajowhite">navajowhite</option>
+                          <option value="lightgray">lightgray</option>
+                          <option value="darkgray">darkgray</option>
+                          <option value="gray">gray</option>
+                          <option value="black">black</option>
+                          </select>
+                          <button class="btn btn-default btn-sm bg-primary" name="selector" type="submit" style="width:45%;">Установить тему</button>
+                      </form>
+                  </div>
               </div>
           </div>
       </div>

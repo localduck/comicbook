@@ -10,6 +10,7 @@ class ComicReader(AbstractUser):
     marvel_comic = models.BooleanField(verbose_name='Вселенная Marvel', default=False)
     adult_comic = models.BooleanField(verbose_name='Для взрослых', default=False)
     hentai_comic = models.BooleanField(verbose_name='hentai', default=False)
+    theme = models.CharField(max_length=250, verbose_name='Тема интерфейса', default='white_theme')
 
     def get_bookmarks(self):
         return self.bookmarkcomic_set.all().order_by('comic')

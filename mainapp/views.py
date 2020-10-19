@@ -18,6 +18,7 @@ class ComicObserver(ListView):
     model = Comic
     template_name = 'mainapp/comic_list.html'
     context_object_name = 'comics'
+    paginate_by = 30
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
